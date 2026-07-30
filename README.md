@@ -1,5 +1,5 @@
 # LaSyNet — Latent Symbiosis for Joint Medical Image Enhancement and Segmentation
-!(LaSyNet.png)
+![LaSyNet Framework](LaSyNet.png)
 
 This repository contains a reference PyTorch implementation of **LaSyNet** from the paper:
 
