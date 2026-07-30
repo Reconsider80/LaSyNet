@@ -1,5 +1,5 @@
 # LaSyNet — Latent Symbiosis for Joint Medical Image Enhancement and Segmentation
-![DiSIINet Framework](DiSIINet.png)
+!https://github.com/Reconsider80/LaSyNet/blob/main/LaSyNet.png
 
 This repository contains a reference PyTorch implementation of **LaSyNet** from the paper:
 
