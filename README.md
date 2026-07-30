@@ -50,18 +50,7 @@ LaSyNet/
 
 ## Installation
 
-### Option 1: use the existing `py310` conda environment
-
-The current server already has a `py310` environment with all required packages (PyTorch 2.0.1+cu117, torchvision, scikit-image, nibabel, etc.).  Just activate it:
-
-```bash
-cd /data2/chenying/LaSyNet
-conda activate py310
-```
-
-Then run the demo or training scripts directly.
-
-### Option 2: create a fresh `lasynet` environment
+### create a fresh `lasynet` environment
 
 ```bash
 git clone <repo-url>
