@@ -1,0 +1,39 @@
+# Minimal synthetic-data demo for quick smoke testing of LaSyNet
+
+dataset: synthetic
+num_samples: 256
+image_size: 128
+num_classes: 1
+batch_size: 4
+num_workers: 0
+
+image_channels: 1
+latent_dim: 4
+seg_channels: 16
+time_emb_dim: 128
+beta: 1.0
+lambda_seg: 0.5
+
+vae_base_channels: 16
+vae_channel_mult: [1, 2, 4]
+vae_num_res_blocks: 2
+vae_kl_weight: 0.0
+
+unet_model_channels: 16
+unet_channel_mult: [1, 2, 4]
+unet_num_res_blocks: 2
+freeze_backbone: false
+gsii_num_heads: 4
+
+seg_base_channels: 16
+seg_downsample_steps: 2
+
+epochs: 5
+lr: 1.0e-3
+weight_decay: 1.0e-2
+scheduler: none
+amp: false
+use_tensorboard: false
+save_every: 1
+
+num_steps: 10

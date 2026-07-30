@@ -1,0 +1,62 @@
+# LaSyNet default configuration (TN3K-like 2D ultrasound setup)
+
+# -----------------------------------------------------------------------------
+# Data
+# -----------------------------------------------------------------------------
+dataset: tn3k              # one of {acdc, kits23, tn3k, identity}
+data_root: ./data/TN3K
+image_size: 256
+num_classes: 1           # 1 for binary masks, >1 for multi-class
+batch_size: 4
+num_workers: 4
+
+# Modality-specific degradation parameters (see lasynet/data/degradation.py)
+degradation:
+  # TN3K: Gamma speckle (alpha)
+  alpha: 5.0
+  # ACDC overrides: phase_shift_range, rician_sigma
+  # KiTS23 overrides: peak
+
+# -----------------------------------------------------------------------------
+# Model architecture
+# -----------------------------------------------------------------------------
+image_channels: 1
+latent_dim: 4            # latent channel count (f=4 LDM-style)
+seg_channels: 32         # channel count of Flq spatial priors
+time_emb_dim: 256
+beta: 1.0                # weight of segmentation RF loss
+lambda_seg: 0.5          # weight of pixel-space segmentation loss
+
+# VAE first stage (small, replace with a pretrained medical LDM VAE for best results)
+vae_base_channels: 32
+vae_channel_mult: [1, 2, 4]
+vae_num_res_blocks: 2
+vae_kl_weight: 0.0      # set >0 to train a KL-regularized VAE
+
+# Rectified-Flow UNet backbone
+unet_model_channels: 32
+unet_channel_mult: [1, 2, 4]
+unet_num_res_blocks: 2
+freeze_backbone: false   # set true if you load a pretrained diffusion backbone
+gsii_num_heads: 4
+
+# Segmentation encoder
+seg_base_channels: 32
+seg_downsample_steps: 2  # must match VAE downsampling factor (len(vae_channel_mult)-1)
+
+# -----------------------------------------------------------------------------
+# Training
+# -----------------------------------------------------------------------------
+epochs: 100
+lr: 1.0e-4
+weight_decay: 1.0e-2
+scheduler: cosine        # cosine, step, or none
+lr_min: 1.0e-6
+amp: false
+use_tensorboard: true
+save_every: 10
+
+# -----------------------------------------------------------------------------
+# Inference
+# -----------------------------------------------------------------------------
+num_steps: 25            # Euler ODE steps (paper uses S=25)

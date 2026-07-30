@@ -1,0 +1,16 @@
+name: lasynet
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - torch>=2.0.0
+      - torchvision>=0.15.0
+      - numpy>=1.23.0
+      - Pillow>=9.0.0
+      - PyYAML>=6.0
+      - scikit-image>=0.20.0
+      - tensorboard>=2.13.0
+      - nibabel>=5.0.0
