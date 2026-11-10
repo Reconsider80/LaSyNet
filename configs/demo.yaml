@@ -23,6 +23,7 @@ unet_model_channels: 16
 unet_channel_mult: [1, 2, 4]
 unet_num_res_blocks: 2
 freeze_backbone: false
+# CVPR G-SII: FFT gating + TD-X discrepancy routing
 gsii_num_heads: 4
 
 seg_base_channels: 16

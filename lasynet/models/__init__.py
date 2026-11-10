@@ -2,7 +2,7 @@ from .vae import Autoencoder
 from .seg_encoder import SegEncoder, MaskEncoder, SegDecoder
 from .unet import UNet2D, get_timestep_embedding
 from .adapter import ConvBottleneckAdapter
-from .gsii import GSII
+from .gsii import GSII, FrequencyStatsExtractor, TokenDiscrepancyExtractor
 from .lasynet import LaSyNet
 
 __all__ = [
@@ -13,5 +13,7 @@ __all__ = [
     "get_timestep_embedding",
     "ConvBottleneckAdapter",
     "GSII",
+    "FrequencyStatsExtractor",
+    "TokenDiscrepancyExtractor",
     "LaSyNet",
 ]

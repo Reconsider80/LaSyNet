@@ -14,7 +14,11 @@ from .vae import Autoencoder
 
 
 class LaSyNet(nn.Module):
-    """Unified Rectified-Flow framework with adapter-guided G-SII routing.
+    """Unified Rectified-Flow framework with upgraded frequency-aware G-SII.
+
+    CVPR revision highlights:
+      - Frequency-aware G-SII with FFT gating + TD-X discrepancy routing
+      - Robust L1 velocity-field supervision (inspired by MedFlowSeg)
 
     Args:
         image_channels: input image channels (usually 1 for medical images).
@@ -166,11 +170,11 @@ class LaSyNet(nn.Module):
             zt_seg, F_lq, F_os, t, self.seg_input_proj, self.seg_adapters
         )
 
-        # Rectified-Flow losses (Eq. 8, 9).
+        # Robust L1 Rectified-Flow velocity losses (CVPR Eqs. 11-12).
         target_enh = z_enh_1 - z0_enh
         target_seg = z_seg_1 - z0_seg
-        loss_rf_enh = F.mse_loss(v_enh, target_enh)
-        loss_rf_seg = F.mse_loss(v_seg, target_seg)
+        loss_rf_enh = F.l1_loss(v_enh, target_enh)
+        loss_rf_seg = F.l1_loss(v_seg, target_seg)
 
         # Approximate clean latent from the predicted velocity for output supervision.
         z1_enh_pred = zt_enh + (1.0 - t4) * v_enh
@@ -178,7 +182,7 @@ class LaSyNet(nn.Module):
         I_p = self.vae.decode(z1_enh_pred)
         S_logits = self.seg_decoder(z1_seg_pred)
 
-        # Pixel-space losses (Eq. 10, 11).
+        # Pixel-space losses (CVPR Eqs. 13-14).
         loss_enh = F.mse_loss(I_p, gt)
         if self.num_classes == 1:
             loss_seg = self._binary_segmentation_loss(S_logits, mask)
@@ -187,6 +191,7 @@ class LaSyNet(nn.Module):
             loss_seg = self._multiclass_segmentation_loss(S_logits, mask)
             S_p = torch.softmax(S_logits, dim=1)
 
+        # Overall joint objective (CVPR Eq. 15).
         loss = (
             loss_rf_enh
             + self.beta * loss_rf_seg
@@ -233,7 +238,7 @@ class LaSyNet(nn.Module):
         num_steps: int = 25,
         return_latents: bool = False,
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Deterministic Euler ODE integration for inference (Eq. 1-2, 3-7)."""
+        """Deterministic Euler ODE integration for inference (CVPR Eqs. 1-10)."""
         b = x_lq.shape[0]
         device = x_lq.device
         z_lq = self.vae.get_latent(x_lq)
