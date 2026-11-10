@@ -6,7 +6,7 @@
 
 This repository contains a reference PyTorch implementation of **LaSyNet** from the paper:
 
-> **Latent Symbiosis: Adapter-Guided Diffusion Interaction with Gated Cross-Task Routing for Joint Medical Image Enhancement and Segmentation** (CVPR 2027 submission).
+> **Latent Symbiosis: Adapter-Guided Diffusion Interaction with Gated Cross-Task Routing for Joint Medical Image Enhancement and Segmentation**.
 
 LaSyNet unifies medical image enhancement and segmentation into a single **Rectified-Flow** generative framework. A frozen latent UNet backbone is adapted via lightweight, task-specific **Adapters**, and an upgraded timestep- and frequency-aware **Gated Symbiotic Information Interaction (G-SII)** module dynamically routes bidirectional features between the two tasks.
 
