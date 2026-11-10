@@ -12,19 +12,6 @@ LaSyNet unifies medical image enhancement and segmentation into a single **Recti
 
 ---
 
-## Method highlights (CVPR revision)
-
-This release follows the CVPR method updates (frequency-aware routing inspired by MedFlowSeg):
-
-| Component | Previous draft | CVPR revision |
-|-----------|----------------|---------------|
-| G-SII gating | `σ(MLP(Embed(t)))` | `σ(MLP(Embed(t) ∥ F_fft(Z_enh, Z_seg)))` |
-| Cross-task interaction | plain Multi-Head Attention | Multi-Head Attention **with TD-X** (agreement / difference / residual) |
-| RF velocity loss | L2 (`∥·∥₂`) | robust **L1** (`∥·∥₁`) for sharper boundaries |
-| Routing view | timestep-aware gating | frequency-aware symbiotic gating + dual-domain routing |
-
----
-
 ## Key features
 
 - **Rectified-Flow backbone** — straight-line ODE trajectory between noise and clean latent data instead of curved diffusion paths.
@@ -64,16 +51,9 @@ LaSyNet/
 
 ---
 
-## Installation
+## Installation`
 
-### Option 1: use the existing `py310` conda environment
-
-```bash
-cd /data2/chenying/A/LaSyNet
-conda activate py310
-```
-
-### Option 2: create a fresh `lasynet` environment
+### create a fresh `lasynet` environment
 
 ```bash
 git clone <repo-url>
