@@ -199,7 +199,7 @@ The `LaSyNet` constructor will automatically create the right number of adapters
 @inproceedings{chen2027lasynet,
   title={Latent Symbiosis: Adapter-Guided Diffusion Interaction with Gated Cross-Task Routing for Joint Medical Image Enhancement and Segmentation},
   author={Anonymous},
-  booktitle={CVPR},
+  booktitle={arix},
   year={2027}
 }
 ```
