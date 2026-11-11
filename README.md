@@ -1,4 +1,4 @@
-# Latent Symbiosis: Adapter-Guided Diffusion Interaction with Gated \\ Cross-Task Routing for Joint Medical Image Enhancement and Segmentation
+# Latent Symbiosis: Adapter-Guided Diffusion Interaction with Gated Cross-Task Routing for Joint Medical Image Enhancement and Segmentation
 
 <p align="center">
   <img src="LaSyNet.png" alt="LaSyNet Framework" width="90%"/>
